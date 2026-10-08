@@ -4,7 +4,7 @@ import Triangle from '../shapes/triangle'
 import type { Shape } from '../../types/Shape'
 import type { CSSProperties } from 'react'
 
-function ShapeCanvas({shapes}: {shapes: Shape[]}){
+function ShapeCanvas({shapes, removeShape}: {shapes: Shape[], removeShape: (index: number) => void}){
     const canvasStyles: CSSProperties = {
         display:'flex',
         flexWrap:'wrap',
@@ -20,11 +20,23 @@ function ShapeCanvas({shapes}: {shapes: Shape[]}){
       >
         {shapes.map((shape, index) => {
           if(shape.type === 'box'){
-            return <Box key={index} />
+            return <Box 
+                key={index} 
+                index={index} 
+                removeShape={removeShape} 
+                />
           } else if(shape.type === 'circle'){
-            return <Circle key={index} />
+            return <Circle 
+                key={index} 
+                index={index} 
+                removeShape={removeShape} 
+                />
           } else if(shape.type === 'triangle'){
-            return <Triangle key={index} />
+            return <Triangle 
+                key={index} 
+                index={index} 
+                removeShape={removeShape} 
+                />
           }
           return null
         })}

@@ -10,10 +10,15 @@ function App() {
   const [count, setCount] = useState(0)
   const [shapes, setShapes] = useState<Shape[]>([])
 
-const addShape = (shape: string) => {
-  const newShape = {type: shape, element:null}
-  setShapes([...shapes, newShape])
-}
+  const addShape = (shape: string) => {
+    const newShape = {type: shape, element:null}
+    setShapes([...shapes, newShape])
+  }
+
+  const removeShape = (index: number) => {
+    const newShapes = shapes.filter((_, i) => i !== index)
+    setShapes(newShapes)
+  }
 
   return (
     <>
@@ -31,7 +36,7 @@ const addShape = (shape: string) => {
           Count is {count}
         </button>
 
-        <ShapeCanvas shapes={shapes} />
+        <ShapeCanvas shapes={shapes} removeShape={removeShape} />
       </section> 
       <CreateMenu addShape={addShape} />
     </>
