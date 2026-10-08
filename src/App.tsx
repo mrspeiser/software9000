@@ -1,20 +1,24 @@
 import { useState } from 'react'
-import heroImg from './assets/hero.png'
-import reactLogo from './assets/react.svg'
-import viteLogo from './assets/vite.svg'
+import NavMenu from './components/menus/NavMenu'
+import CreateMenu from './components/menus/CreateMenu'
 import './App.css'
+import ShapeCanvas from './components/windows/ShapesCanvas'
+import type { Shape } from './types/Shape'
+
 
 function App() {
   const [count, setCount] = useState(0)
+  const [shapes, setShapes] = useState<Shape[]>([])
+
+const addShape = (shape: string) => {
+  const newShape = {type: shape, element:null}
+  setShapes([...shapes, newShape])
+}
 
   return (
     <>
-      <section id="center">
-        <div className="hero">
-          <img src={heroImg} className="base" width="170" height="179" alt="" />
-          <img src={reactLogo} className="framework" alt="React logo" />
-          <img src={viteLogo} className="vite" alt="Vite logo" />
-        </div>
+      <NavMenu />
+      <section id="app-wrapper">
         <div>
           <h1>Software 9000</h1>
           <p>Built with React.</p>
@@ -26,11 +30,10 @@ function App() {
         >
           Count is {count}
         </button>
-      </section>
 
-      <div className="ticks"></div>
-      <div className="ticks"></div>
-      <section id="spacer"></section>
+        <ShapeCanvas shapes={shapes} />
+      </section> 
+      <CreateMenu addShape={addShape} />
     </>
   )
 }
